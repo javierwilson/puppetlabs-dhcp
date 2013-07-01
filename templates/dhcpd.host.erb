@@ -2,4 +2,7 @@ host <%= host %> {
   hardware ethernet   <%= mac %>;
   fixed-address       <%= ip %>;
   option host-name    "<%= name %>";
+  <% if @gateway %>
+  option routers <%= @gateway %>;
+  <% end %>
 }

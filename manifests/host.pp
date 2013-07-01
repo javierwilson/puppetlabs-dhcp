@@ -1,6 +1,7 @@
 define dhcp::host (
   $ip,
   $mac,
+  $gateway=undef,
   $comment=''
 ) {
 
