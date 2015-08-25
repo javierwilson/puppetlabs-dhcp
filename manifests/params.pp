@@ -27,7 +27,7 @@ class dhcp::params {
     }
     'redhat','fedora','centos': {
       $dhcp_dir    = '/etc/dhcp'
-      $packagename = 'dhcp'
+      $packagename = 'dhcp-server'
       $servicename = 'dhcpd'
     }
   }
