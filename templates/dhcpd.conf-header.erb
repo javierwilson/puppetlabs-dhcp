@@ -3,18 +3,25 @@
 # dhcpd.conf
 # ----------
 authoritative;
-default-lease-time <%= default_lease_time %>;
-max-lease-time <%= max_lease_time %>;
-log-facility <%= logfacility %>;
+<% if @omapi_port -%>
+omapi-port <%= @omapi_port %>;
+<% end -%>
+default-lease-time <%= @default_lease_time %>;
+max-lease-time <%= @max_lease_time %>;
+log-facility <%= @logfacility %>;
 
 # ----------
 # Options
 # ----------
-option domain-name "<%= dnsdomain.first %>";
-option domain-name-servers <%= nameservers.join(', ') %>;
-option ntp-servers <%= ntpservers.join(', ') %>;
+option domain-name "<%= @dnsdomain_real.first %>";
+option domain-name-servers <%= @nameservers.join(', ') %>;
 option fqdn.no-client-update on;  # set the "O" and "S" flag bits
 option fqdn.rcode2 255;
 option pxegrub code 150 = text;
-<%= unknown_clients %> unknown-clients; 
-# END DHCP Header
+<% if @globaloptions.is_a? Array -%>
+<%   @globaloptions.each do |opt| -%>
+option <%= opt %>;
+<%   end -%>
+<% elsif @globaloptions != '' -%>
+option <%= @globaloptions %>;
+<% end -%>
