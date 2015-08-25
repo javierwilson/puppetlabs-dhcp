@@ -36,8 +36,12 @@ class dhcp::params {
       $package_provider = undef
     }
     'redhat': {
+      if ( $::operatingsystem == 'fedora' ) {
+          $packagename      = 'dhcp-server'
+      } else {
+          $packagename      = 'dhcp'
+      }
       $dhcp_dir         = '/etc/dhcp'
-      $packagename      = 'dhcp'
       $servicename      = 'dhcpd'
       $package_provider = undef
     }
